@@ -94,7 +94,7 @@ DeviceProcessEvents
 
 Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-07-14T00:31:14.5409513Z`, an employee on the "varshitha" device successfully established a connection to the remote IP address `127.0.0.1 on port 9150`. The connection was initiated by the process `tor.exe`, located in the folder `c:\users\varshitha\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443`.
 
-Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At 2025-07-14T00:31:14.5409513Z, an user “varshitha” on the ""var-windowsmach"" device successfully established a connection to the remote IP address 127.0.0.1 on port 9150. The connection was initiated by the process tor.exe, located in the folder c:\users\varshitha\desktop\tor browser\browser\torbrowser\tor\tor.exe. There were a couple of other connections to sites over port 443....
+
 
 **Query used to locate events:**
 
