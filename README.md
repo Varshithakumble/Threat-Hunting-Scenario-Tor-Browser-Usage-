@@ -1,9 +1,9 @@
-# Official [Cyber Range](http://joshmadakor.tech/cyber-range) Project
+# Threat Hunt Report: Unauthorized TOR Usage
+- [Scenario Creation](https://github.com/Varshithakumble/Threat-Hunting-Scenario-Tor-Browser-Usage-/blob/main/threat-hunting-scenario-tor-event-creation.md)
 
 <img width="400" src="https://github.com/user-attachments/assets/44bac428-01bb-4fe9-9d85-96cba7698bee" alt="Tor Logo with the onion and a crosshair on it"/>
 
-# Threat Hunt Report: Unauthorized TOR Usage
-- [Scenario Creation](https://github.com/Varshithakumble/Threat-Hunting-Scenario-Tor-Browser-Usage-/blob/main/threat-hunting-scenario-tor-event-creation.md)
+
 
 ## Platforms and Languages Leveraged
 - Windows 10 Virtual Machines (Microsoft Azure)
@@ -80,14 +80,19 @@ DeviceProcessEvents
 |where FileName  has_any ("tor.exe","tor-browser.exe","firefox.exe")
 |project Timestamp, DeviceName, ActionType,AccountName, FileName, FolderPath, SHA256, ProcessCommandLine
 |order by Timestamp desc
+```
+<img width="1053" height="498" alt="image" src="https://github.com/user-attachments/assets/f6571860-e2ec-4563-9101-2a3d39aa4891" />
 
-<img width="1087" height="484" alt="image" src="https://github.com/user-attachments/assets/74a46bd8-6ffa-4797-8d23-e6a046a29ac9" />
 
+
+
+ 
 ---
+
 
 ### 4. Searched the `DeviceNetworkEvents` Table for TOR Network Connections
 
-Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-07-14T00:31:14.5409513Z`, an employee on the "varshitha" device successfully established a connection to the remote IP address `127.0.0.1 on port 9150`. The connection was initiated by the process `tor.exe`, located in the folder `c:\users\employee\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443`.
+Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-07-14T00:31:14.5409513Z`, an employee on the "varshitha" device successfully established a connection to the remote IP address `127.0.0.1 on port 9150`. The connection was initiated by the process `tor.exe`, located in the folder `c:\users\varshitha\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443`.
 
 Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At 2025-07-14T00:31:14.5409513Z, an user “varshitha” on the ""var-windowsmach"" device successfully established a connection to the remote IP address 127.0.0.1 on port 9150. The connection was initiated by the process tor.exe, located in the folder c:\users\varshitha\desktop\tor browser\browser\torbrowser\tor\tor.exe. There were a couple of other connections to sites over port 443....
 
@@ -122,14 +127,14 @@ DeviceNetworkEvents
 - **Event:** The user "varshitha" executed the file `tor-browser-windows-x86_64-portable-14.5.4.exe` in silent mode, initiating a background installation of the TOR Browser.
 - **Action:** Process creation detected.
 - **Command:** `tor-browser-windows-x86_64-portable-14.5.4.exe /S`
-- **File Path:** `C:\Users\employee\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
+- **File Path:** `C:\Users\varshitha\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
 
 ### 3. Process Execution - TOR Browser Launch
 
-- **Timestamp:** `2024-11-08T22:17:21.6357935Z`
-- **Event:** User "employee" opened the TOR browser. Subsequent processes associated with TOR browser, such as `firefox.exe` and `tor.exe`, were also created, indicating that the browser launched successfully.
+- **Timestamp:** `2025-07-14T00:31:08.8102828Z.`
+- **Event:** User "varshitha" opened the TOR browser. Subsequent processes associated with TOR browser, such as `firefox.exe` and `tor.exe`, were also created, indicating that the browser launched successfully.
 - **Action:** Process creation of TOR browser-related executables detected.
-- **File Path:** `C:\Users\employee\Desktop\Tor Browser\Browser\TorBrowser\Tor\tor.exe`
+- **File Path:** `C:\Users\varshitha\Desktop\Tor Browser\Browser\TorBrowser\Tor\tor.exe`
 
 ### 4. Network Connection - TOR Network
 
@@ -137,22 +142,22 @@ DeviceNetworkEvents
 - **Event:** A network connection to IP `176.198.159.33` on port `9001` by user "employee" was established using `tor.exe`, confirming TOR browser network activity.
 - **Action:** Connection success.
 - **Process:** `tor.exe`
-- **File Path:** `c:\users\employee\desktop\tor browser\browser\torbrowser\tor\tor.exe`
+- **File Path:** `c:\users\varshitha\desktop\tor browser\browser\torbrowser\tor\tor.exe`
 
 ### 5. Additional Network Connections - TOR Browser Activity
 
 - **Timestamps:**
-  - `2024-11-08T22:18:08Z` - Connected to `194.164.169.85` on port `443`.
+  - `2024-11-08T22:18:08Z` - Connected to `65.109.0.210` on port `443`.
   - `2024-11-08T22:18:16Z` - Local connection to `127.0.0.1` on port `9150`.
-- **Event:** Additional TOR network connections were established, indicating ongoing activity by user "employee" through the TOR browser.
+- **Event:** Additional TOR network connections were established, indicating ongoing activity by user "varshitha" through the TOR browser.
 - **Action:** Multiple successful connections detected.
 
 ### 6. File Creation - TOR Shopping List
 
-- **Timestamp:** `2024-11-08T22:27:19.7259964Z`
-- **Event:** The user "employee" created a file named `tor-shopping-list.txt` on the desktop, potentially indicating a list or notes related to their TOR browser activities.
+- **Timestamp:** `2025-07-11T03:17:35.7200269Z`
+- **Event:** The user "varshitha" created a file named `tor-shopping-list.txt` on the desktop, potentially indicating a list or notes related to their TOR browser activities.
 - **Action:** File creation detected.
-- **File Path:** `C:\Users\employee\Desktop\tor-shopping-list.txt`
+- **File Path:** `C:\Users\varshitha\Desktop\tor-shopping-list.txt`
 
 ---
 
