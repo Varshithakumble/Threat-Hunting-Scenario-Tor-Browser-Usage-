@@ -100,12 +100,13 @@ Searched for any indication the TOR browser was used to establish a connection u
 
 ```kql
 DeviceNetworkEvents  
-| where DeviceName == "threat-hunt-lab"  
+| where DeviceName == "var-windowsmach"  
 | where InitiatingProcessAccountName != "system"  
 | where InitiatingProcessFileName in ("tor.exe", "firefox.exe")  
 | where RemotePort in ("9001", "9030", "9040", "9050", "9051", "9150", "80", "443")  
 | project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName, InitiatingProcessFolderPath  
 | order by Timestamp desc
+
 ```
 <img width="1090" height="496" alt="image" src="https://github.com/user-attachments/assets/409f859b-8ee8-40ef-a95d-0a6fd2f467bc" />
 
@@ -163,12 +164,12 @@ DeviceNetworkEvents
 
 ## Summary
 
-The user "employee" on the "threat-hunt-lab" device initiated and completed the installation of the TOR browser. They proceeded to launch the browser, establish connections within the TOR network, and created various files related to TOR on their desktop, including a file named `tor-shopping-list.txt`. This sequence of activities indicates that the user actively installed, configured, and used the TOR browser, likely for anonymous browsing purposes, with possible documentation in the form of the "shopping list" file.
+The user "varshitha" on the "var-windowsmach" device initiated and completed the installation of the TOR browser. They proceeded to launch the browser, establish connections within the TOR network, and created various files related to TOR on their desktop, including a file named `tor-shopping-list.txt`. This sequence of activities indicates that the user actively installed, configured, and used the TOR browser, likely for anonymous browsing purposes, with possible documentation in the form of the "shopping list" file.
 
 ---
 
 ## Response Taken
 
-TOR usage was confirmed on the endpoint `threat-hunt-lab` by the user `employee`. The device was isolated, and the user's direct manager was notified.
+TOR usage was confirmed on the endpoint `var-windowsmach` by the user `varshitha`. The device was isolated, and the user's direct manager was notified.
 
 ---
