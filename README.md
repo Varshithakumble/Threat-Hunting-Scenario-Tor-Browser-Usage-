@@ -27,7 +27,7 @@ Management suspects that some employees may be using TOR browsers to bypass netw
 
 ### 1. Searched the `DeviceFileEvents` Table
 
-Searched for any file that had the string "tor" in it and discovered what looks like the user "employee" downloaded a TOR installer, did something that resulted in many TOR-related files being copied to the desktop, and the creation of a file called `tor-shopping-list.txt` on the desktop at `2024-11-08T22:27:19.7259964Z`. These events began at `2024-11-08T22:14:48.6065231Z`.
+Searched for any file that had the string "tor" in it and discovered what looks like the user "employee" downloaded a TOR installer, did something that resulted in many TOR-related files being copied to the desktop, and the creation of a file called `tor-shopping-list.txt` on the desktop at `2025-07-11T03:17:35.7200269Z`. These events began at `2025-07-11T03:05:37.9271247Z`.
 
 **Query used to locate events:**
 
@@ -36,12 +36,13 @@ DeviceFileEvents
 |where DeviceName == "var-windowsmach"
 |where InitiatingProcessAccountName == "varshitha"
 | where FileName contains "tor"
-|where Timestamp >= datetime(2025-07-14T00:19:53.577404Z)
+|where Timestamp >= datetime(2025-07-11T03:05:37.9271247Z)
 |order by Timestamp desc
-| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, InitiatingProcessAccountName
+| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, Account = InitiatingProcessAccountName
 
 ```
-<img width="1064" height="510" alt="image" src="https://github.com/user-attachments/assets/9bdf087b-3ad9-489b-a37a-1e76b5b1218c" />
+<img width="1081" height="496" alt="image" src="https://github.com/user-attachments/assets/b73ed014-2b31-480c-a9d5-773f93a46798" />
+
 
 
 
@@ -50,41 +51,45 @@ DeviceFileEvents
 
 ### 2. Searched the `DeviceProcessEvents` Table
 
-Searched for any `ProcessCommandLine` that contained the string "tor-browser-windows-x86_64-portable-14.0.1.exe". Based on the logs returned, at `2024-11-08T22:16:47.4484567Z`, an employee on the "threat-hunt-lab" device ran the file `tor-browser-windows-x86_64-portable-14.0.1.exe` from their Downloads folder, using a command that triggered a silent installation.
+Searched for any `ProcessCommandLine` that contained the string "tor-browser-windows-x86_64-portable-14.5.4.exe". Based on the logs returned, at `2025-07-14T00:19:53.577404Z`, an employee on the "var-windowsmach" device ran the file `tor-browser-windows-x86_64-portable-14.5.4.exe` from their Downloads folder, using a command that triggered a silent installation.
 
 **Query used to locate event:**
 
 ```kql
 
-DeviceProcessEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.0.1.exe"  
-| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine
+DeviceProcessEvents
+|where DeviceName == "var-windowsmach"
+|where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.5.4"
+|project Timestamp, DeviceName, ActionType,AccountName, FileName, FolderPath, SHA256, ProcessCommandLine
+
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/b07ac4b4-9cb3-4834-8fac-9f5f29709d78">
+<img width="1114" height="387" alt="image" src="https://github.com/user-attachments/assets/189b2cbd-c0cb-4c7f-9393-178ff827d73a" />
+
 
 ---
 
 ### 3. Searched the `DeviceProcessEvents` Table for TOR Browser Execution
 
-Searched for any indication that user "employee" actually opened the TOR browser. There was evidence that they did open it at `2024-11-08T22:17:21.6357935Z`. There were several other instances of `firefox.exe` (TOR) as well as `tor.exe` spawned afterwards.
+Searched for any indication that user "varshitha" actually opened the TOR browser. There was evidence that they did open it at `2025-07-14T00:31:08.8102828Z`. There were several other instances of `firefox.exe` (TOR) as well as `tor.exe` spawned afterwards.
 
 **Query used to locate events:**
 
 ```kql
-DeviceProcessEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where FileName has_any ("tor.exe", "firefox.exe", "tor-browser.exe")  
-| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine  
-| order by Timestamp desc
-```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/b13707ae-8c2d-4081-a381-2b521d3a0d8f">
+DeviceProcessEvents
+|where DeviceName == "var-windowsmach"
+|where FileName  has_any ("tor.exe","tor-browser.exe","firefox.exe")
+|project Timestamp, DeviceName, ActionType,AccountName, FileName, FolderPath, SHA256, ProcessCommandLine
+|order by Timestamp desc
+
+<img width="1087" height="484" alt="image" src="https://github.com/user-attachments/assets/74a46bd8-6ffa-4797-8d23-e6a046a29ac9" />
 
 ---
 
 ### 4. Searched the `DeviceNetworkEvents` Table for TOR Network Connections
 
-Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2024-11-08T22:18:01.1246358Z`, an employee on the "threat-hunt-lab" device successfully established a connection to the remote IP address `176.198.159.33` on port `9001`. The connection was initiated by the process `tor.exe`, located in the folder `c:\users\employee\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443`.
+Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-07-14T00:31:14.5409513Z`, an employee on the "varshitha" device successfully established a connection to the remote IP address `127.0.0.1 on port 9150`. The connection was initiated by the process `tor.exe`, located in the folder `c:\users\employee\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443`.
+
+Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At 2025-07-14T00:31:14.5409513Z, an user “varshitha” on the ""var-windowsmach"" device successfully established a connection to the remote IP address 127.0.0.1 on port 9150. The connection was initiated by the process tor.exe, located in the folder c:\users\varshitha\desktop\tor browser\browser\torbrowser\tor\tor.exe. There were a couple of other connections to sites over port 443....
 
 **Query used to locate events:**
 
@@ -97,7 +102,8 @@ DeviceNetworkEvents
 | project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName, InitiatingProcessFolderPath  
 | order by Timestamp desc
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/87a02b5b-7d12-4f53-9255-f5e750d0e3cb">
+<img width="1090" height="496" alt="image" src="https://github.com/user-attachments/assets/409f859b-8ee8-40ef-a95d-0a6fd2f467bc" />
+
 
 ---
 
