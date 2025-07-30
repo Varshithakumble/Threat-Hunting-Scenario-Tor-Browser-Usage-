@@ -51,7 +51,7 @@ DeviceFileEvents
 
 ### 2. Searched the `DeviceProcessEvents` Table
 
-Searched for any `ProcessCommandLine` that contained the string "tor-browser-windows-x86_64-portable-14.5.4.exe". Based on the logs returned, at `2025-07-14T00:19:53.577404Z`, an employee on the "var-windowsmach" device ran the file `tor-browser-windows-x86_64-portable-14.5.4.exe` from their Downloads folder, using a command that triggered a silent installation.
+Searched for any `ProcessCommandLine` that contained the string "tor-browser-windows-x86_64-portable-14.5.4.exe". Based on the logs returned, at `2025-07-14T00:30:16.568659Z`, an employee on the "var-windowsmach" device ran the file `tor-browser-windows-x86_64-portable-14.5.4.exe` from their Downloads folder, using a command that triggered a silent installation.
 
 **Query used to locate event:**
 
@@ -111,17 +111,17 @@ DeviceNetworkEvents
 
 ### 1. File Download - TOR Installer
 
-- **Timestamp:** `2024-11-08T22:14:48.6065231Z`
-- **Event:** The user "employee" downloaded a file named `tor-browser-windows-x86_64-portable-14.0.1.exe` to the Downloads folder.
+- **Timestamp:** `2025-07-11T03:05:37.9271247Z`
+- **Event:** The user "varshitha" downloaded a file named `tor-browser-windows-x86_64-portable-14.5.4.exe` to the Downloads folder.
 - **Action:** File download detected.
-- **File Path:** `C:\Users\employee\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
+- **File Path:** `C:\Users\varshitha\Downloads\tor-browser-windows-x86_64-portable-14.5.4.exe `
 
 ### 2. Process Execution - TOR Browser Installation
 
-- **Timestamp:** `2024-11-08T22:16:47.4484567Z`
-- **Event:** The user "employee" executed the file `tor-browser-windows-x86_64-portable-14.0.1.exe` in silent mode, initiating a background installation of the TOR Browser.
+- **Timestamp:** `2025-07-14T00:30:16.568659Z`
+- **Event:** The user "varshitha" executed the file `tor-browser-windows-x86_64-portable-14.5.4.exe` in silent mode, initiating a background installation of the TOR Browser.
 - **Action:** Process creation detected.
-- **Command:** `tor-browser-windows-x86_64-portable-14.0.1.exe /S`
+- **Command:** `tor-browser-windows-x86_64-portable-14.5.4.exe /S`
 - **File Path:** `C:\Users\employee\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
 
 ### 3. Process Execution - TOR Browser Launch
